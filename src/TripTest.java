@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TripTest {
@@ -5,30 +6,30 @@ public class TripTest {
         Trip[] trip = new Trip[3];
 
         boolean diff = false;
+        int indeks = 0;
 
-        Scanner scanner = new Scanner(System.in);
+        while (!diff && indeks != trip.length) {
+            System.out.println("Wprowadź dane:");
+            Scanner scanner = new Scanner(System.in);
 
-        trip[0] = new Trip(scanner.nextLine(), scanner.nextInt());
-        scanner.nextLine();
+            Trip trip_obj = new Trip(scanner.nextLine(), scanner.nextInt());
+            scanner.nextLine();
 
-
-        for (int i = 1; i < 3; i++) {
-            while (!diff) {
-                System.out.println("Wprowadź obiekt: ");
-                trip[i] = new Trip(scanner.nextLine(), scanner.nextInt());
-                scanner.nextLine();
-                if (trip[i].equals(trip[i - 1])) {
-                    System.out.println("To jest duplikat");
-                    i = i - 1;
+            boolean is = false;
+            for (int i = 0; i < trip.length - 1; i++) {
+                if (trip_obj.equals(trip[i])) {
+                    System.out.println("Wprowadziłeś duplikat");
+                    is = true;
+                    break;
                 }
-                diff = true;
             }
-            diff = false;
+
+            if (!is) {
+                trip[indeks] = trip_obj;
+                indeks++;
+            }
         }
 
-        for (Trip trip1 : trip) {
-            System.out.println(trip1.toString());
-        }
+        System.out.println(Arrays.toString(trip));
     }
 }
-
